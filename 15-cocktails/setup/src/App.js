@@ -1,18 +1,26 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-// import pages
-import Home from './pages/Home'
-import About from './pages/About'
-import SingleCocktail from './pages/SingleCocktail'
-import Error from './pages/Error'
+import { BrowserRouter, Route, Routes } from 'react-router-dom' // import pages
 // import components
 import Navbar from './components/Navbar'
+import About from './pages/About'
+import Error from './pages/Error'
+import Home from './pages/Home'
+import SingleCocktail from './pages/SingleCocktail'
 function App() {
-  return (
-    <div>
-      <h2>app component</h2>
-    </div>
-  )
+	return (
+		<BrowserRouter>
+			<Navbar />
+			<Routes>
+				<Route path='/' element={<Home />} />
+				<Route path='/about' element={<About />} />
+				<Route index element={<Home />} />
+				<Route path='cocktail'>
+					<Route path=':cocktailId' element={<SingleCocktail />} />
+				</Route>
+				<Route path='*' element={<Error />} />
+			</Routes>
+		</BrowserRouter>
+	)
 }
 
 export default App
