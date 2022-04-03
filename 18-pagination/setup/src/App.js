@@ -4,7 +4,6 @@ import { useFetch } from './useFetch'
 // import Loading from './../../../23-quiz/setup/src/Loading';
 function App() {
 	const { loading, data } = useFetch()
-	console.log(data)
 	return (
 		<main>
 			<section className='section-title'>
