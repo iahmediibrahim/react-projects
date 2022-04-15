@@ -1,16 +1,14 @@
 import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import Home from './Home'
 import Movie from './SingleMovie'
 
 function App() {
 	return (
-		<Switch>
-			<Route path='/' exact>
-				<Home />
-			</Route>
-			<Route path='/movies/:id' children={<Movie />} />
-		</Switch>
+		<Routes>
+			<Route path='/' element={<Home />} />
+			<Route path='movies/:id' element={<Movie />} />
+		</Routes>
 	)
 }
 
