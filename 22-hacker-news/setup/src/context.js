@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useReducer } from 'react'
-import { SET_LOADING, SET_STORIES } from './actions'
+import { REMOVE_STORY, SET_LOADING, SET_STORIES } from './actions'
 // import { SET_LOADING, SET_STORIES, REMOVE_STORY, HANDLE_PAGE, HANDLE_SEARCH } from './actions'
 import reducer from './reducer'
 
@@ -23,17 +23,18 @@ const AppProvider = ({ children }) => {
 			const resp = await fetch(url)
 			const data = await resp.json()
 			dispatch({ type: SET_STORIES, payload: data })
-
-			console.log(data)
 		} catch (error) {
 			console.log(error.response)
 		}
+	}
+	const removeStory = (id) => {
+		dispatch({ type: REMOVE_STORY, id })
 	}
 	useEffect(() => {
 		fetchStories(`${API_ENDPOINT}query=${state.query}&page=${state.page}`)
 	}, [])
 
-	return <AppContext.Provider value={{ ...state }}>{children}</AppContext.Provider>
+	return <AppContext.Provider value={{ ...state, removeStory }}>{children}</AppContext.Provider>
 }
 // make sure use
 export const useGlobalContext = () => {

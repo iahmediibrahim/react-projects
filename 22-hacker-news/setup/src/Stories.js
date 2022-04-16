@@ -2,7 +2,7 @@ import React from 'react'
 import { useGlobalContext } from './context'
 
 const Stories = () => {
-	const { loading, hits } = useGlobalContext()
+	const { loading, hits, removeStory } = useGlobalContext()
 	if (loading) return <div className='loading'></div>
 	return (
 		<section className='stories'>
@@ -19,7 +19,9 @@ const Stories = () => {
 							<a href={url} target='_blank' rel='noopener noreferrer' className='read-link'>
 								read more
 							</a>
-							<button className='remove-btn'>remove</button>
+							<button className='remove-btn' onClick={() => removeStory(objectID)}>
+								remove
+							</button>
 						</div>
 					</article>
 				)
