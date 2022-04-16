@@ -1,5 +1,5 @@
-// import axios from 'axios'
-import React, { useContext, useState } from 'react'
+import axios from 'axios'
+import React, { useContext, useEffect, useState } from 'react'
 
 const table = {
 	sports: 21,
@@ -21,6 +21,29 @@ const AppProvider = ({ children }) => {
 	const [correct, setCorrect] = useState(0)
 	const [error, setError] = useState(false)
 	const [isModalOpen, setIsModalOpen] = useState(false)
+	const fetchQuestions = async (url) => {
+		setLoading(true)
+		setWaiting(false)
+		const resp = await axios(url).catch((err) => console.log(err))
+		if (resp) {
+			const data = resp.data.results
+			if (data.length > 0) {
+				setQuestions(data)
+				setLoading(false)
+				setWaiting(false)
+				setError(false)
+			} else {
+				setWaiting(true)
+				setError(true)
+			}
+		} else {
+			setWaiting(true)
+		}
+	}
+	useEffect(() => {
+		fetchQuestions(tempUrl)
+	}, [])
+
 	return (
 		<AppContext.Provider value={{ waiting, loading, questions, index, correct, error, isModalOpen }}>
 			{children}
