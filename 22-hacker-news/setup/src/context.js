@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useReducer } from 'react'
-import { REMOVE_STORY, SET_LOADING, SET_STORIES } from './actions'
+import { HANDLE_SEARCH, REMOVE_STORY, SET_LOADING, SET_STORIES } from './actions'
 // import { SET_LOADING, SET_STORIES, REMOVE_STORY, HANDLE_PAGE, HANDLE_SEARCH } from './actions'
 import reducer from './reducer'
 
@@ -30,11 +30,14 @@ const AppProvider = ({ children }) => {
 	const removeStory = (id) => {
 		dispatch({ type: REMOVE_STORY, id })
 	}
+	const handleSearch = (query) => {
+		dispatch({ type: HANDLE_SEARCH, query })
+	}
 	useEffect(() => {
 		fetchStories(`${API_ENDPOINT}query=${state.query}&page=${state.page}`)
-	}, [])
+	}, [state.query])
 
-	return <AppContext.Provider value={{ ...state, removeStory }}>{children}</AppContext.Provider>
+	return <AppContext.Provider value={{ ...state, removeStory, handleSearch }}>{children}</AppContext.Provider>
 }
 // make sure use
 export const useGlobalContext = () => {
