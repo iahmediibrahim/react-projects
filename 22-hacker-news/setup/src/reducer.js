@@ -15,7 +15,7 @@ const reducer = (state, action) => {
 			let page
 			if (action.value === 'inc') {
 				page = state.page + 1
-				if (page >= state.nbPages - 1) page = 0
+				if (page > state.nbPages - 1) page = 0
 			} else if (action.value === 'dec') {
 				page = state.page - 1
 				if (page < 0) page = state.nbPages - 1
