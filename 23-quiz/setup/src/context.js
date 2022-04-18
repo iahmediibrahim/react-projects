@@ -68,7 +68,8 @@ const AppProvider = ({ children }) => {
 		setCorrect(0)
 	}
 	const handleChange = (e) => {
-		console.log(e)
+		const { name, value } = e.target
+		setQuiz({ ...quiz, [name]: value })
 	}
 	const handleSubmit = (e) => {
 		e.preventDefault()
